@@ -18,6 +18,7 @@ def create_order(request):
         try:
             form = OrderForm(request.POST)
             new_order = form.save()
+            new_order.user = request.user
             new_order.save()
             return redirect('order_list')
         except ValueError:
