@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>User details:</h1>
+    <h1>Order details:</h1>
     <ul class="list-group">
         <li class="list-group-item">
-            User: {{ order.user.last_name }} {{ order.user.first_name }} {{ order.user.middle_name }}</li>
+            User: {{ order.user.first_name }} {{ order.user.last_name }}</li>
         <li class="list-group-item">Book:
-            "{{ order.book.name }}", {{ order.book.authors.surname }} {{ order.book.authors.name }} {{ order.book.authors.patronymic }}</li>
+            "{{ order.book.name }}", {{ order.book.authors.first.name }} {{ order.book.authors.first.surname }}</li>
         <li class="list-group-item">Start date: {{ order.created_at|date:"d M Y" }}</li>
-        <li class="list-group-item">Plated end date: {{ order.plated_end_at|date:"d M Y" }}</li>
         <li class="list-group-item">End date: {{ order.end_at|date:"d M Y" }}</li>
+        <li class="list-group-item">Plated end date: {{ order.plated_end_at|date:"d M Y" }}</li>
     </ul>
-
+    <br>
     <form method="POST">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
