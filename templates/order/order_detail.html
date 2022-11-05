@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>User details:</h1>
+    <ul class="list-group">
+        <li class="list-group-item">
+            User: {{ order.user.last_name }} {{ order.user.first_name }} {{ order.user.middle_name }}</li>
+        <li class="list-group-item">Book:
+            "{{ order.book.name }}", {{ order.book.authors.surname }} {{ order.book.authors.name }} {{ order.book.authors.patronymic }}</li>
+        <li class="list-group-item">Start date: {{ order.created_at|date:"d M Y" }}</li>
+        <li class="list-group-item">Plated end date: {{ order.plated_end_at|date:"d M Y" }}</li>
+        <li class="list-group-item">End date: {{ order.end_at|date:"d M Y" }}</li>
+    </ul>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'order_update' order.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'order_list' %}" class="btn btn-success">Back to order list</a>
+    </form>
+{% endblock %}

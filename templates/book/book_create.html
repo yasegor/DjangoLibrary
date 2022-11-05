@@ -1,0 +1,16 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="w-50 p-3">
+            <div class="form-floating mb-3">
+                {{ form|crispy }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/books/" class="btn btn-success">Back to list</a>
+    </form>
+{% endblock %}

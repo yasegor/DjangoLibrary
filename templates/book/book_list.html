@@ -1,0 +1,42 @@
+{% extends '../base.html' %}
+
+{% block title %}
+    Authors | {{ block.super }}
+{% endblock %}
+
+
+{% block content_title %}
+    List of Authors
+{% endblock %}
+
+{% block content %}
+    <div class="col-12">
+        <table class="table table-sm table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">description</th>
+                <th scope="col">count</th>
+                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Add
+                    new book</i></a></th>
+            </tr>
+            </thead>
+            {% for book in books %}
+                <tbody>
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.description }}</td>
+                    <td>{{ book.count }}</td>
+                    <td>
+                        <a type="button" class="btn btn-primary" href="/books/{{ book.id }}"><i
+                                class="far fa-eye">View</i></a>
+                        <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}"><i
+                                class="fas fa-edit">Update</i></a>
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+

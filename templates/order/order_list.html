@@ -1,0 +1,49 @@
+{% extends '../base.html' %}
+
+{% block title %}
+    Orders | {{ block.super }}
+{% endblock %}
+
+
+{% block content_title %}
+    List of Orders
+{% endblock %}
+
+{% block content %}
+    <div class="col-12">
+        <table class="table table-sm table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Book:</th>
+                <th scope="col">Created at:</th>
+                <th scope="col">End at:</th>
+                <th scope="col">Plated end at:</th>
+
+
+                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Create</i></a>
+                </th>
+            </tr>
+            </thead>
+            {% for order in orders %}
+                <tbody>
+                <tr>
+                    <td>
+                        "{{ order.book.name }}", {{ order.book.authors.first.name }} {{ order.book.authors.first.surname }}</td>
+                    <td>{{ order.created_at|date:"d M Y" }}</td>
+                    <td>{{ order.end_at|date:"d M Y" }}</td>
+                    <td>{{ order.plated_end_at|date:"d M Y" }}</td>
+
+
+                    <td>
+                        <a type="button" class="btn btn-primary" href="{% url 'order_detail' order.id %}"><i
+                                class="far fa-eye">View</i></a>
+                        <a type="button" class="btn btn-warning" href="{% url 'order_update' order.id %}"><i
+                                class="fas fa-edit">Update</i></a>
+
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

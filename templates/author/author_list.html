@@ -1,0 +1,33 @@
+{% extends '../base.html' %}
+
+
+{% block content %}
+    <div class="col-12">
+        <table class="table table-sm table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">surname</th>
+                <th scope="col">patronymic</th>
+                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Add
+                    new author</i></a></th>
+            </tr>
+            </thead>
+            {% for author in authors %}
+                <tbody>
+                <tr>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.surname }}</td>
+                    <td>{{ author.patronymic }}</td>
+                    <td>
+                        <a type="button" class="btn btn-primary" href="/authors/{{ author.id }}"><i class="far fa-eye">View</i></a>
+                        <a type="button" class="btn btn-warning" href="/authors/update/{{ author.id }}"><i
+                                class="fas fa-edit">Update</i></a>
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
