@@ -5,8 +5,8 @@ from book.models import Book
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.DO_NOTHING)
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     end_at = models.DateField(auto_now_add=False, auto_now=False, blank=True)
     plated_end_at = models.DateTimeField()

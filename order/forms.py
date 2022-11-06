@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 from .models import Order
 
 
-# class DateInput(forms.DateInput):
-#     input_type = 'date'
+class DatePickerInput(forms.DateInput):
+    input_type = 'date'
 
 
 class OrderForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class OrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
         self.fields['book'].label_from_instance = lambda book: f'{book.name} ( {book.description[:16]}...)'
-        self.fields['book'].empty_label = "Select"
-        self.fields['end_at'].widget = forms.DateInput()
+        self.fields['book'].empty_label = "Select the book"
+        self.fields['end_at'].widget = DatePickerInput()
         self.fields['plated_end_at'].initial = datetime.now() + timedelta(days=15)
         self.fields['plated_end_at'].widget = forms.HiddenInput()

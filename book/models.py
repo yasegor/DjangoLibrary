@@ -1,5 +1,5 @@
 from django.db import models, IntegrityError, DataError
-from django.core.validators import RegexValidator
+from django.contrib import admin
 from author.models import Author
 
 
