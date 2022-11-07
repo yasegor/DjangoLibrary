@@ -17,8 +17,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">description</th>
                 <th scope="col">count</th>
-                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Add
-                    new book</i></a></th>
+                <th scope="col">Actions <a type="button" class="btn btn-success mx-0" href="create/"><i>Add
+                    new</i></a></th>
             </tr>
             </thead>
             {% for book in books %}
@@ -28,10 +28,8 @@
                     <td>{{ book.description }}</td>
                     <td>{{ book.count }}</td>
                     <td>
-                        <a type="button" class="btn btn-primary" href="/books/{{ book.id }}"><i
-                                class="far fa-eye">View</i></a>
-                        <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}"><i
-                                class="fas fa-edit">Update</i></a>
+                        <a type="button" class="btn btn-primary mx-2 my-2" href="/books/{{ book.id }}"><i>View</i></a>
+                        <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}"><i>Update</i></a>
                     </td>
                 </tr>
                 </tbody>

@@ -9,8 +9,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">surname</th>
                 <th scope="col">patronymic</th>
-                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Add
-                    new author</i></a></th>
+                <th scope="col">Actions <a type="button" class="btn btn-success mx-5" href="create/">Add
+                    new</a></th>
             </tr>
             </thead>
             {% for author in authors %}
@@ -20,9 +20,10 @@
                     <td>{{ author.surname }}</td>
                     <td>{{ author.patronymic }}</td>
                     <td>
-                        <a type="button" class="btn btn-primary" href="/authors/{{ author.id }}"><i class="far fa-eye">View</i></a>
-                        <a type="button" class="btn btn-warning" href="/authors/update/{{ author.id }}"><i
-                                class="fas fa-edit">Update</i></a>
+                        <a type="button" class="btn btn-primary mx-2 my-2"
+                           href="/authors/{{ author.id }}"><i>View</i></a>
+                        <a type="button" class="btn btn-warning"
+                           href="/authors/update/{{ author.id }}"><i>Update</i></a>
                     </td>
                 </tr>
                 </tbody>
