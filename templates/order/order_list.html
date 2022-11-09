@@ -20,7 +20,7 @@
                 <th scope="col">Plated end at:</th>
 
 
-                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/"><i class="fas fa-edit">Create</i></a>
+                <th scope="col">Actions <a type="button" class="btn btn-success" href="create/">Create</a>
                 </th>
             </tr>
             </thead>
@@ -35,10 +35,9 @@
 
 
                     <td>
-                        <a type="button" class="btn btn-primary" href="{% url 'order_detail' order.id %}"><i
-                                class="far fa-eye">View</i></a>
-                        <a type="button" class="btn btn-warning" href="{% url 'order_update' order.id %}"><i
-                                class="fas fa-edit">Update</i></a>
+                        <a type="button" class="btn btn-primary mx-2 my-2"
+                           href="{% url 'order_detail' order.id %}">View</a>
+                        <a type="button" class="btn btn-warning" href="{% url 'order_update' order.id %}">Update</a>
 
                     </td>
                 </tr>
