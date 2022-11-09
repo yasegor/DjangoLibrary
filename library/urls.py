@@ -35,7 +35,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('books/', include('book.urls')),
-    path('order/', include('order.urls')),
+    path('orders/', include('order.urls')),
     path('authors/', include('author.urls')),
     path('api/v1/', include(router.urls)),
 ]
