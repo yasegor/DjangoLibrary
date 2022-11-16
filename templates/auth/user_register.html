@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        .asteriskField {
+            display: none;
+        }
+
+        p {
+            position: absolute;
+            top: 75%;
+            left: 39%;
+        }
+
+    </style>
+    <div class="container py-3">
+        <h3>Sign up in library 📚</h3>
+        <br>
+        {% crispy form %}
+    </div>
+    <p>If you already have an account, <a href={% url 'login' %}>login</a> instead.</p>
+{% endblock %}
