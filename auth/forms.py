@@ -1,19 +1,19 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.contrib.auth.models import User
 
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Arnold'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Armstrong'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Robert'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Polson'}))
     username = forms.CharField(
         label='Username',
         max_length=30,
         error_messages={'unique': (
             "User with that username already exists.")},
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Choose your username'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Write your username'})
     )
     email = forms.EmailField(max_length=30,
                              error_messages={
@@ -48,22 +48,40 @@ class SignUpForm(UserCreationForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
+                Column('username', css_class='form-group col-md-3 mb-3'),
                 Column('first_name', css_class='form-group col-md-3 mb-3'),
                 Column('last_name', css_class='form-group col-md-3 mb-3'),
                 css_class='form-row'
             ),
             Row(
-                Column('username', css_class='form-group col-md-3 mb-3'),
                 Column('email', css_class='form-group col-md-3 mb-3'),
                 css_class='form-row'
             ),
             Row(
                 Column('password1', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
                 Column('password2', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Sign up')
+            Submit('submit', 'Sign up', css_class='my-3')
+        )
+
+
+class AuthUserForm(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ("username", "password")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-3 mb-3'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('password', css_class='form-group col-md-3 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Sign up', css_class='my-3')
         )

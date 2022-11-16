@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
-</body>
-</html>
+{% block content %}
+    <style>
+        .asteriskField {
+            display: none;
+        }
+
+        p {
+            position: absolute;
+            top: 75%;
+            left: 39%;
+        }
+
+    </style>
+    <div class="container py-3">
+        <h3>Sign in library 📚</h3>
+        <br>
+        {% crispy form %}
+    </div>
+    <p>Don't have an account? <a href={% url 'register' %}>Create an account</a>.</p>
+{% endblock %}
