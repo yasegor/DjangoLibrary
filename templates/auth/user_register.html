@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <style>
+        .asteriskField {
+            display: none;
+        }
+    </style>
+    <div class="container py-3">
+        <h3>Registration in library 📚</h3>
+        <br>
+        {% crispy form %}
+    </div>
+{% endblock %}

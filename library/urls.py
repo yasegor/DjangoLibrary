@@ -21,6 +21,8 @@ from .settings import DEBUG
 from api.views import *
 from . import views
 
+app_name = 'library'
+
 if DEBUG:
     router = routers.DefaultRouter()
 else:
@@ -34,8 +36,9 @@ router.register(r'orders', OrderViewSet)
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
+    path('user/', include('auth.urls')),
+    path('authors/', include('author.urls')),
     path('books/', include('book.urls')),
     path('orders/', include('order.urls')),
-    path('authors/', include('author.urls')),
     path('api/v1/', include(router.urls)),
 ]
