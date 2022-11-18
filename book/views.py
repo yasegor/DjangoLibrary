@@ -33,7 +33,7 @@ def book_form(request, id=0):
 
 def book_detail(request, id):
     book = get_object_or_404(Book, pk=id)
-    context = {'book': book.to_dict()}
+    context = {'book': book}
     return render(request, 'book/book_detail.html', context)
 
 

@@ -1,5 +1,4 @@
 from django.db import models, IntegrityError, DataError
-from django.contrib import admin
 from author.models import Author
 
 

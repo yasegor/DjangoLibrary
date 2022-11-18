@@ -110,7 +110,7 @@
     </style>
     <div class="my-4">
         <h4><i>Book Title:</i> {{ book.name }}</h4>
-        <h4><i>Author:</i> {{ book.authors.name|join:'; ' }}</h4>
+        <h4><i>Author:</i> {{ book.get_authors_list|join:'; ' }}</h4>
         <h4><i>Book Count:</i> {{ book.count }}</h4>
         <h4><i>Book Description:</i> <h5>{{ book.description }}</h5></h4>
     </div>
