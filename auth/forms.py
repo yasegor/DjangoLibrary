@@ -49,12 +49,12 @@ class SignUpForm(UserCreationForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('username', css_class='form-group col-md-3 mb-3'),
                 Column('first_name', css_class='form-group col-md-3 mb-3'),
                 Column('last_name', css_class='form-group col-md-3 mb-3'),
                 css_class='form-row'
             ),
             Row(
+                Column('username', css_class='form-group col-md-3 mb-3'),
                 Column('email', css_class='form-group col-md-3 mb-3'),
                 css_class='form-row'
             ),

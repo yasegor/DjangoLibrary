@@ -6,7 +6,7 @@ from .forms import BookForm
 
 
 def all_books(request):
-    books = Book.get_all()
+    books = Book.get_all().order_by('-id')
     context = {'books': books}
     return render(request, 'book/book_list.html', context)
 
