@@ -7,7 +7,7 @@ from .forms import BookForm
 
 def all_books(request):
     books = Book.get_all().order_by('-id')
-    context = {'books': books}
+    context = {'books': books, 'title': 'Books'}
     return render(request, 'book/book_list.html', context)
 
 
@@ -18,7 +18,7 @@ def book_form(request, id=0):
         else:
             book = Book.objects.get(pk=id)
             form = BookForm(instance=book)
-        return render(request, 'book/book_create.html', {'form': form})
+        return render(request, 'book/book_create.html', {'form': form, 'title': 'Book'})
     else:
         if id == 0:
             form = BookForm(request.POST)
@@ -33,7 +33,7 @@ def book_form(request, id=0):
 
 def book_detail(request, id):
     book = get_object_or_404(Book, pk=id)
-    context = {'book': book}
+    context = {'book': book, 'title': book.name}
     return render(request, 'book/book_detail.html', context)
 
 

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 def all_orders(request):
     orders = Order.objects.all().order_by('-id')
-    context = {'orders': orders}
+    context = {'orders': orders, 'title': 'Orders'}
     return render(request, 'order/order_list.html', context)
 
 
@@ -31,7 +31,7 @@ def create_order(request):
 def order_detail(request, id):
     order = get_object_or_404(Order, pk=id)
     if request.method == 'GET':
-        context = {'order': order}
+        context = {'order': order, 'title': f'Order: {order.id}'}
         return render(request, 'order/order_detail.html', context)
     else:
         order.delete()
@@ -42,7 +42,7 @@ def order_update(request, id):
     order = Order.get_by_id(id)
     if request.method == 'GET':
         form = OrderForm(instance=order)
-        context = {'form': form}
+        context = {'form': form, 'title': 'Order'}
         return render(request, 'order/order_create.html', context)
     else:
         try:
@@ -50,5 +50,5 @@ def order_update(request, id):
             form.save()
             return redirect('order_list')
         except ValueError:
-            context = {'form': OrderForm(), 'error': 'Wrong data'}
+            context = {'form': OrderForm(), 'error': 'Wrong data', 'title': 'Order'}
             return render(request, 'order/order_create.html', context)

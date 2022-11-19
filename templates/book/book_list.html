@@ -1,23 +1,15 @@
-{% extends '../base.html' %}
+{% extends 'base.html' %}
 
-{% block title %}
-    Authors | {{ block.super }}
-{% endblock %}
-
-
-{% block content_title %}
-    List of Authors
-{% endblock %}
 
 {% block content %}
-    <div class="col-12">
+    <div class="col-12 container py-3">
         <table class="table table-sm table-hover">
             <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">description</th>
                 <th scope="col">count</th>
-                <th scope="col">Actions <a type="button" class="btn btn-success mx-0" href="create/">Add
+                <th scope="col"><a type="button" class="btn btn-success mx-0" href="create/">Add
                     new</a></th>
             </tr>
             </thead>
