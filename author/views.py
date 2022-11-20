@@ -5,7 +5,7 @@ from .forms import AuthorForm
 
 def all_authors(request):
     authors = Author.get_all()
-    context = {'authors': authors}
+    context = {'authors': authors, 'title': 'Authors'}
     return render(request, 'author/author_list.html', context)
 
 
@@ -16,7 +16,7 @@ def author_form(request, id=0):
         else:
             book = Author.objects.get(pk=id)
             form = AuthorForm(instance=book)
-        return render(request, 'author/author_create.html', {'form': form})
+        return render(request, 'author/author_create.html', {'form': form, 'title': 'Author'})
     else:
         if id == 0:
             form = AuthorForm(request.POST)
@@ -31,7 +31,7 @@ def author_form(request, id=0):
 def author_detail(request, id):
     author = get_object_or_404(Author, pk=id)
     books = author.get_books_list()
-    context = {'author': author, "books": books}
+    context = {'author': author, "books": books, 'title': f'{author.name} {author.surname}'}
     return render(request, 'author/author_detail.html', context)
 
 

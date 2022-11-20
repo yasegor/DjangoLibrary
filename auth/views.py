@@ -2,7 +2,6 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, AuthUserForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 
 
 def register_view(request):
@@ -28,6 +27,8 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('index')
+        else:
+            return render(request, 'auth/user_login.html', {'form': form, 'title': 'Sign up'})
     form = AuthUserForm()
     return render(request, 'auth/user_login.html', {'form': form, 'title': 'Sign in'})
 

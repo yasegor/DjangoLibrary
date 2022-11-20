@@ -1,5 +1,4 @@
 from django.db import models, IntegrityError, DataError
-from django.contrib import admin
 from author.models import Author
 
 
@@ -158,8 +157,8 @@ class Book(models.Model):
         """
         returns data for json request with QuerySet of all books
         """
-        all_users = Book.objects.all()
-        return all_users
+        all_books = Book.objects.all()
+        return all_books
 
     def get_authors_list(self):
         authors_list = [f'{author.name} {author.surname}' for author in self.authors.all()]
