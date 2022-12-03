@@ -115,10 +115,14 @@
     <h4>Books: {{ books|join:'; ' }}</h4>
     </div>
 
+    {% if perms.author.change_author %}
     <a href="/authors/update/{{ author.id }}" class="btn btn-primary">Update</a>
+    {% endif %}
     <a href="/authors/" class="btn btn-success">Back to list</a>
     <!-- Button HTML (to Trigger Modal) -->
+    {% if perms.author.delete_author %}
     <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
+    {% endif %}
 
     <!-- Modal HTML -->
     <div id="myModal" class="modal fade">

@@ -8,9 +8,11 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">surname</th>
-                <th scope="col">patronymic</th>
-                <th scope="col"><a type="button" class="btn btn-success mx-5" href="create/">Add
-                    new</a></th>
+                <th scope="col">patronymic
+                    {% if perms.author.add_author %}
+                        <th scope="col"><a type="button" class="btn btn-success mx-5" href="create/">Add
+                            new</a></th>
+                    {% endif %}
             </tr>
             </thead>
             {% for author in authors %}
@@ -22,8 +24,10 @@
                     <td>
                         <a type="button" class="btn btn-primary mx-2 my-2"
                            href="/authors/{{ author.id }}">View</a>
+                        {% if perms.author.change_author %}
                         <a type="button" class="btn btn-warning"
                            href="/authors/update/{{ author.id }}">Update</a>
+                        {% endif %}
                     </td>
                 </tr>
                 </tbody>

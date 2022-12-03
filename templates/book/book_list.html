@@ -9,8 +9,10 @@
                 <th scope="col">Name</th>
                 <th scope="col">description</th>
                 <th scope="col">count</th>
+                {% if perms.book.add_book %}
                 <th scope="col"><a type="button" class="btn btn-success mx-0" href="create/">Add
                     new</a></th>
+                {% endif %}
             </tr>
             </thead>
             {% for book in books %}
@@ -21,7 +23,9 @@
                     <td>{{ book.count }}</td>
                     <td>
                         <a type="button" class="btn btn-primary mx-2 my-2" href="/books/{{ book.id }}">View</a>
+                        {% if perms.book.change_book %}
                         <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}">Update</a>
+                        {% endif %}
                     </td>
                 </tr>
                 </tbody>

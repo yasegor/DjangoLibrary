@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -11,6 +12,8 @@ def all_books(request):
     return render(request, 'book/book_list.html', context)
 
 
+@permission_required('book.add_book', raise_exception=True)
+@permission_required('book.change_book', raise_exception=True)
 def book_form(request, id=0):
     if request.method == 'GET':
         if id == 0:
@@ -37,6 +40,7 @@ def book_detail(request, id):
     return render(request, 'book/book_detail.html', context)
 
 
+@permission_required('book.delete_book', raise_exception=True)
 def book_delete(request, id):
     book = Book.get_by_id(id)
     book.delete()

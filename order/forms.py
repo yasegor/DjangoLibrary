@@ -32,7 +32,7 @@ class OrderForm(forms.ModelForm):
             Column('book', css_class='form-group col-md-3 mb-3'),
             Column('end_at', css_class='form-group col-md-3 mb-3'),
             Column('plated_end_at', css_class='form-group col-md-3 mb-3'),
-            Submit('submit', 'Add order', css_class='my-3')
+            Submit('submit', 'Confirm', css_class='my-3')
         )
 
     def clean(self):
@@ -43,6 +43,6 @@ class OrderForm(forms.ModelForm):
         if books_count == 0:
             raise forms.ValidationError("There are no more books like this in the library!")
         if not end_at_date:
-            raise forms.ValidationError("End date not set!")
+            raise forms.ValidationError("End date hasn't been set!")
 
         return self.cleaned_data

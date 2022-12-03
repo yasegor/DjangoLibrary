@@ -115,11 +115,14 @@
         <h4><i>Book Description:</i> <h5>{{ book.description }}</h5></h4>
     </div>
     <div>
-        {% comment %} <button type="submit" class="btn btn-danger">Delete</button> {% endcomment %}
-        <a href="/books/update/{{ book.id }}" class="btn btn-primary">Update</a>
+        {% if perms.book.change_book %}
+            <a href="{% url 'book_update' book.id %} " class="btn btn-primary">Update</a>
+        {% endif %}
         <a href="/books/" class="btn btn-success">Back to list</a>
         <!-- Button HTML (to Trigger Modal) -->
-        <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
+        {% if perms.book.delete_book %}
+            <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
+        {% endif %}
 
         <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
