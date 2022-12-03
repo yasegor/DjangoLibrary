@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,10 +68,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/authors/">List of authors</a></li>
+                        {% if perms.author.add_author %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="/authors/create/">Add new author</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -80,10 +83,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/books/">List of books</a></li>
+                        {% if perms.book.add_book %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="/books/create/">Add new book</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -92,11 +97,18 @@
                         Orders
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/orders/">List of orders</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/orders/create/">Add new order</a></li>
+                        {% if request.user|has_group:"Librarian" or user.is_superuser %}
+                            <li><a class="dropdown-item" href="/orders/">List of orders</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="/orders/">My orders</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="/orders/create/">New order</a></li>
                     </ul>
                 </li>
             </ul>
@@ -130,7 +142,7 @@
         </div>
     </div>
 </nav>
-<div class="content container">
+<div class="content container my-2">
     {% block content %}
         {% if user.is_authenticated %}
             <h3>Hello, {{ user.first_name }} {{ user.last_name }}!</h3>

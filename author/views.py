@@ -1,14 +1,17 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Author
 from .forms import AuthorForm
 
 
 def all_authors(request):
-    authors = Author.get_all()
+    authors = Author.get_all().order_by('name')
     context = {'authors': authors, 'title': 'Authors'}
     return render(request, 'author/author_list.html', context)
 
 
+@permission_required('author.add_author', raise_exception=True)
+@permission_required('author.change_author', raise_exception=True)
 def author_form(request, id=0):
     if request.method == 'GET':
         if id == 0:
@@ -35,6 +38,7 @@ def author_detail(request, id):
     return render(request, 'author/author_detail.html', context)
 
 
+@permission_required('author.delete_author', raise_exception=True)
 def author_delete(request, id):
     author = Author.get_by_id(id)
     author.delete()
