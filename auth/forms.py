@@ -70,8 +70,6 @@ class SignUpForm(UserCreationForm):
 class AuthUserForm(AuthenticationForm):
     username = forms.CharField(label='Username',
                                max_length=30,
-                               error_messages={'unique': (
-                                   "User with that username already exists.")},
                                widget=forms.TextInput(
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
     password = forms.CharField(label='Password',
