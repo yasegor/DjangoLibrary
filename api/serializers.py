@@ -23,10 +23,18 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
 
-    # def to_representation(self, instance): change data show
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['authors'] = instance.get_authors_list()
+        return representation
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['book'] = instance.book.name
+        return representation
