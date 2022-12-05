@@ -1,5 +1,6 @@
 from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from api.permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 
 from author.models import Author
@@ -31,7 +32,7 @@ class BookViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticated)
 
     def get_queryset(self):
         user_id = self.request.user.id

@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'library',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
@@ -107,6 +109,12 @@ REST_FRAMEWORK = {
         'rest_framework.renders.JSONRenderer',
         'rest_framework.renders.BrowsableAPIRenderer',
     ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
