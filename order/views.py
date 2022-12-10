@@ -45,7 +45,7 @@ def create_order(request):
 def order_detail(request, id):
     order = get_object_or_404(Order, pk=id)
     if request.method == 'GET':
-        context = {'order': order, 'title': f'Order: {order.id}'}
+        context = {'order': order, 'title': f'Order №{order.id}'}
         return render(request, 'order/order_detail.html', context)
     else:
         order.delete()
