@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.cache import cache_page
 
 from book.models import Book
 from .models import Order
@@ -13,7 +12,11 @@ from .forms import OrderForm
 def all_orders(request):
     if User.objects.filter(id=request.user.id, groups__name='Librarian').exists() or request.user.is_superuser:
         orders = Order.objects.all().order_by('-id').select_related('book')
-        context = {'orders': orders, 'title': 'All orders'}
+        page_number = request.GET.get('page', 1)
+        paginator = Paginator(orders, 6)
+        page_obj = paginator.get_page(page_number)
+        page_range = paginator.get_elided_page_range(number=page_number)
+        context = {'title': 'All orders', 'page_range': page_range, 'page_obj': page_obj}
         return render(request, 'order/order_list.html', context)
     else:
         orders = Order.objects.filter(user_id=request.user.id).order_by('-id').select_related('book')
@@ -21,7 +24,11 @@ def all_orders(request):
             context = {'title': 'Oops...'}
             return render(request, 'order/no_orders.html', context)
         else:
-            context = {'orders': orders, 'title': 'My orders'}
+            page_number = request.GET.get('page', 1)
+            paginator = Paginator(orders, 6)
+            page_obj = paginator.get_page(page_number)
+            page_range = paginator.get_elided_page_range(number=page_number)
+            context = {'title': 'My orders', 'page_range': page_range, 'page_obj': page_obj}
             return render(request, 'order/order_user_list.html', context)
 
 

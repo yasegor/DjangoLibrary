@@ -7,19 +7,19 @@
             <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">description</th>
-                <th scope="col">count</th>
+                <th scope="col">Description</th>
+                <th scope="col">Count</th>
                 {% if perms.book.add_book %}
                     <th scope="col"><a type="button" class="btn btn-success mx-0" href="create/">Add
                         new</a></th>
                 {% endif %}
             </tr>
             </thead>
-            {% for book in books %}
+            {% for book in page_obj %}
                 <tbody>
                 <tr>
                     <td>{{ book.name }}</td>
-                    <td>{{ book.description|truncatewords:45 }}</td>
+                    <td>{{ book.description|truncatewords:40 }}</td>
                     <td>{{ book.count }}</td>
                     <td>
                         <a type="button" class="btn btn-primary mx-2 my-2" href="/books/{{ book.id }}">View</a>
@@ -32,5 +32,40 @@
             {% endfor %}
         </table>
     </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
+                <a class="page-link"
+                   href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}''{% endif %}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            {% for page_num in page_range|default_if_none:page_obj.paginator.get_elided_page_range %}
+                {% if page_obj.number == page_num %}
+                    <li class="active page-item"><span class="page-link">{{ page_num }}</span>
+                    </li>
+                {% else %}
+                    {% if page_num == page_obj.paginator.ELLIPSIS %}
+                        <li class="page-item"><span class="page-link">{{ page_num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+
+            <li class="{% if page_obj.has_next %}page-item{% else %}page-item disabled{% endif %}">
+                <a class="page-link"
+                   href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}''{% endif %}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 {% endblock %}
 

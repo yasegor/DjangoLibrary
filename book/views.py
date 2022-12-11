@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import cache_page
 
@@ -6,10 +7,14 @@ from .models import Book
 from .forms import BookForm
 
 
-@cache_page(15 * 60)
+# @cache_page(10 * 60)
 def all_books(request):
     books = Book.get_all().order_by('-id')
-    context = {'books': books, 'title': 'Books'}
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(books, 3)
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(number=page_number)
+    context = {'title': 'Books', 'page_range': page_range, 'page_obj': page_obj}
     return render(request, 'book/book_list.html', context)
 
 
