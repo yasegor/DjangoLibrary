@@ -7,9 +7,9 @@ from library.settings import DEBUG
 app_name = 'library'
 
 urlpatterns = [
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('', views.index, name='index'),
     path('api/v1/', include('api.urls')),
-    re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('admin/', admin.site.urls),
     path('user/', include('auth.urls')),
     path('authors/', include('author.urls')),

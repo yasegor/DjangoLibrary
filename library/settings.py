@@ -1,3 +1,4 @@
+import os.path
 from datetime import timedelta
 
 import environ
@@ -163,3 +164,10 @@ SIMPLE_JWT = {
 INTERNAL_IPS = [
     env('INTERNAL_IPS'),
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'library_cache'),
+    }
+}
