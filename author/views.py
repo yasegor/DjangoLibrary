@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
+
 from .models import Author
 from .forms import AuthorForm
 
 
+@cache_page(15 * 60)
 def all_authors(request):
     authors = Author.get_all().order_by('name')
     context = {'authors': authors, 'title': 'Authors'}
@@ -31,6 +34,7 @@ def author_form(request, id=0):
         return redirect('/authors/')
 
 
+@cache_page(15 * 60)
 def author_detail(request, id):
     author = get_object_or_404(Author, pk=id)
     books = author.get_books_list()

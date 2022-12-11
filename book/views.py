@@ -1,11 +1,12 @@
-from django.contrib.auth.decorators import login_required, permission_required
-from django.http.response import JsonResponse
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
 
 from .models import Book
 from .forms import BookForm
 
 
+@cache_page(15 * 60)
 def all_books(request):
     books = Book.get_all().order_by('-id')
     context = {'books': books, 'title': 'Books'}
@@ -34,6 +35,7 @@ def book_form(request, id=0):
         return redirect('/books/')
 
 
+@cache_page(15 * 60)
 def book_detail(request, id):
     book = get_object_or_404(Book, pk=id)
     context = {'book': book, 'title': book.name}

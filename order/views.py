@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
 
 from book.models import Book
 from .models import Order
@@ -11,11 +12,11 @@ from .forms import OrderForm
 @login_required
 def all_orders(request):
     if User.objects.filter(id=request.user.id, groups__name='Librarian').exists() or request.user.is_superuser:
-        orders = Order.objects.all().order_by('-id')
+        orders = Order.objects.all().order_by('-id').select_related('book')
         context = {'orders': orders, 'title': 'All orders'}
         return render(request, 'order/order_list.html', context)
     else:
-        orders = Order.objects.filter(user_id=request.user.id).order_by('-id')
+        orders = Order.objects.filter(user_id=request.user.id).order_by('-id').select_related('book')
         if not orders.first():
             context = {'title': 'Oops...'}
             return render(request, 'order/no_orders.html', context)
