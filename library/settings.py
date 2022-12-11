@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'crispy_forms',
     'crispy_bootstrap5',
-    'debug_toolbar'
+    'debug_toolbar',
+    'captcha'
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

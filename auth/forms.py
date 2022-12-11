@@ -1,8 +1,9 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit, Div, Field
+from captcha.fields import CaptchaField
 
 
 class SignUpForm(UserCreationForm):
@@ -28,10 +29,11 @@ class SignUpForm(UserCreationForm):
                                     attrs={'class': 'form-control'})))
     password2 = forms.CharField(label='Password confirmation',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    captcha = CaptchaField()
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2',)
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -49,20 +51,18 @@ class SignUpForm(UserCreationForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('first_name', css_class='form-group col-md-3 mb-3'),
-                Column('last_name', css_class='form-group col-md-3 mb-3'),
+                Column('first_name', css_class='form-group col-md-2 mb-3'),
+                Column('last_name', css_class='form-group col-md-2 mb-3'),
+                Column('username', css_class='form-group col-md-2 mb-3'),
                 css_class='form-row'
             ),
             Row(
-                Column('username', css_class='form-group col-md-3 mb-3'),
-                Column('email', css_class='form-group col-md-3 mb-3'),
+                Column('email', css_class='form-group col-md-2 mb-3'),
+                Column('password1', css_class='form-group col-md-2 mb-3'),
+                Column('password2', css_class='form-group col-md-2 mb-3'),
                 css_class='form-row'
             ),
-            Row(
-                Column('password1', css_class='form-group col-md-3 mb-0'),
-                Column('password2', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
-            ),
+            Column('captcha', css_class='col-md-2 mb-3'),
             Submit('submit', 'Sign up', css_class='my-3')
         )
 
