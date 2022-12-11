@@ -10,8 +10,8 @@
                 <th scope="col">description</th>
                 <th scope="col">count</th>
                 {% if perms.book.add_book %}
-                <th scope="col"><a type="button" class="btn btn-success mx-0" href="create/">Add
-                    new</a></th>
+                    <th scope="col"><a type="button" class="btn btn-success mx-0" href="create/">Add
+                        new</a></th>
                 {% endif %}
             </tr>
             </thead>
@@ -19,12 +19,12 @@
                 <tbody>
                 <tr>
                     <td>{{ book.name }}</td>
-                    <td>{{ book.description }}</td>
+                    <td>{{ book.description|truncatewords:45 }}</td>
                     <td>{{ book.count }}</td>
                     <td>
                         <a type="button" class="btn btn-primary mx-2 my-2" href="/books/{{ book.id }}">View</a>
                         {% if perms.book.change_book %}
-                        <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}">Update</a>
+                            <a type="button" class="btn btn-warning" href="/books/update/{{ book.id }}">Update</a>
                         {% endif %}
                     </td>
                 </tr>

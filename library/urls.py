@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
+
 from . import views
+from library.settings import DEBUG
 
 app_name = 'library'
 
@@ -14,3 +16,6 @@ urlpatterns = [
     path('books/', include('book.urls')),
     path('orders/', include('order.urls')),
 ]
+
+if DEBUG:
+    urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
