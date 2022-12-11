@@ -16,7 +16,7 @@ class SignUpForm(UserCreationForm):
             "User with that username already exists.")},
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'})
     )
-    email = forms.EmailField(max_length=30,
+    email = forms.EmailField(required=True, max_length=40,
                              error_messages={
                                  'unique': (
                                      "User with that email already registered."
