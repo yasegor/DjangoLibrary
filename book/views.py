@@ -7,7 +7,7 @@ from .models import Book
 from .forms import BookForm
 
 
-# @cache_page(10 * 60)
+@cache_page(10 * 60)
 def all_books(request):
     books = Book.get_all().order_by('-id')
     page_number = request.GET.get('page', 1)
