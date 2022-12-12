@@ -14,5 +14,5 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to="avatars/%m/%Y")
     phone_number = PhoneNumberField(region='UA')
     birthday = models.DateField()
-    sex = models.CharField(choices=GENDER_CHOICES, default=0)
+    sex = models.CharField(max_length=15, choices=GENDER_CHOICES, default=0)
     verified = models.BooleanField(default=False)

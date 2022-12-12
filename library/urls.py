@@ -12,7 +12,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('api/v1/', include('api.urls')),
     path('admin/', admin.site.urls),
-    path('user/', include('auth.urls')),
+    path('user/', include('authentication.urls')),
     path('authors/', include('author.urls')),
     path('books/', include('book.urls')),
     path('orders/', include('order.urls')),

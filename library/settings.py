@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'auth.apps.AuthConfig',
+    'authentication.apps.AuthenticationConfig',
     'author.apps.AuthorConfig',
     'book.apps.BookConfig',
     'order.apps.OrderConfig',
