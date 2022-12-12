@@ -1,8 +1,9 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
 from . import views
-from library.settings import DEBUG
+from library.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 
 app_name = 'library'
 
@@ -22,4 +23,5 @@ urlpatterns += [
 ]
 
 if DEBUG:
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
     urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
