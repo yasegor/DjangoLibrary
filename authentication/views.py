@@ -1,12 +1,18 @@
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.shortcuts import render, redirect
+
 from .forms import SignUpForm, AuthUserForm
 from django.contrib.auth import login, authenticate
 
+from .utils import send_mail_to_verify
+
 
 def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -14,8 +20,8 @@ def register_view(request):
             group = Group.objects.get(name='User')
             user_to_group = User.objects.get(username=user)
             group.user_set.add(user_to_group)
-            login(request, user)
-            return redirect('index')
+            send_mail_to_verify(request, user)
+            redirect('index')
         else:
             return render(request, 'auth/user_register.html', {'form': form, 'title': 'Sign up'})
     form = SignUpForm()
@@ -29,9 +35,13 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None:
+            if user.profile.verified and user is not None:
                 login(request, user)
+                messages.success(request, "<b>You are successfully logged in!</b>")
                 return redirect('index')
+            else:
+                messages.error(request,
+                               '<b>Your email has not been verified.</b> Check your email inbox and try again.')
         else:
             return render(request, 'auth/user_login.html', {'form': form, 'title': 'Sign up'})
     form = AuthUserForm()

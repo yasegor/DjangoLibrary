@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit, Div, Field
-from captcha.fields import CaptchaField
+from crispy_forms.layout import Layout, Row, Column, Submit
+from django.core.exceptions import ValidationError
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class SignUpForm(UserCreationForm):
@@ -16,7 +18,7 @@ class SignUpForm(UserCreationForm):
             "User with that username already exists.")},
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'})
     )
-    email = forms.EmailField(max_length=30,
+    email = forms.EmailField(required=True, max_length=40,
                              error_messages={
                                  'unique': (
                                      "User with that email already registered."
@@ -29,7 +31,6 @@ class SignUpForm(UserCreationForm):
                                     attrs={'class': 'form-control'})))
     password2 = forms.CharField(label='Password confirmation',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    captcha = CaptchaField()
 
     class Meta:
         model = User
@@ -57,12 +58,11 @@ class SignUpForm(UserCreationForm):
                 css_class='form-row'
             ),
             Row(
-                Column('email', css_class='form-group col-md-2 mb-3'),
+                Column('email', css_class='form-group col-md-3 mb-3'),
                 Column('password1', css_class='form-group col-md-2 mb-3'),
                 Column('password2', css_class='form-group col-md-2 mb-3'),
                 css_class='form-row'
             ),
-            Column('captcha', css_class='col-md-2 mb-3'),
             Submit('submit', 'Sign up', css_class='my-3')
         )
 
@@ -75,10 +75,19 @@ class AuthUserForm(AuthenticationForm):
     password = forms.CharField(label='Password',
                                widget=(forms.PasswordInput(
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your password'})))
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     class Meta:
         model = User
         fields = ("username", "password")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        if not user.profile.verified:
+            raise ValidationError("Your email isn't verified. Check your email inbox and try again.")
+        return self.cleaned_data
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -93,5 +102,6 @@ class AuthUserForm(AuthenticationForm):
                 Column('password', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
+            Column('captcha', css_class='form-group col-md-3 mb-0'),
             Submit('submit', 'Sign in', css_class='my-3')
         )

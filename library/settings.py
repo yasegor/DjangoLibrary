@@ -3,7 +3,15 @@ from datetime import timedelta
 
 import environ
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 env = environ.Env()
 environ.Env.read_env()
 
@@ -22,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication.apps.AuthenticationConfig',
     'author.apps.AuthorConfig',
     'book.apps.BookConfig',
     'order.apps.OrderConfig',
@@ -33,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'debug_toolbar',
-    'captcha'
+    'phonenumber_field',
+    'captcha',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
@@ -105,8 +115,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/user/login/"
@@ -129,6 +142,15 @@ REST_FRAMEWORK = {
     )
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('EMAIL_PORT')
+
+RECAPTCHA_PUBLIC_KEY = env('SITE_KEY')
+RECAPTCHA_PRIVATE_KEY = env('SECRET_KEY')
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
