@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Div, Field
 from captcha.fields import CaptchaField
+from django.core.exceptions import ValidationError
 
 
 class SignUpForm(UserCreationForm):
@@ -57,7 +58,7 @@ class SignUpForm(UserCreationForm):
                 css_class='form-row'
             ),
             Row(
-                Column('email', css_class='form-group col-md-2 mb-3'),
+                Column('email', css_class='form-group col-md-3 mb-3'),
                 Column('password1', css_class='form-group col-md-2 mb-3'),
                 Column('password2', css_class='form-group col-md-2 mb-3'),
                 css_class='form-row'
@@ -79,6 +80,14 @@ class AuthUserForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ("username", "password")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        if not user.profile.verified:
+            raise ValidationError("Your email isn't verified. Check your email inbox and try again.")
+        return self.cleaned_data
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

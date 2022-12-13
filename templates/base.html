@@ -143,6 +143,7 @@
     </div>
 </nav>
 <div class="content container my-2">
+{% include 'includes/messages.html' %}
     {% block content %}
         {% if user.is_authenticated %}
             <h3>Hello, {{ user.first_name }} {{ user.last_name }}!</h3>

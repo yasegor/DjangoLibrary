@@ -3,7 +3,15 @@ from datetime import timedelta
 
 import environ
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 env = environ.Env()
 environ.Env.read_env()
 
@@ -111,6 +119,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/user/login/"

@@ -1,0 +1,12 @@
+{% autoescape off %}
+    Hi, {{ first_name }} {{ last_name }}!
+
+    You are almost with us! Use the link to activate your account and access the DjangoLibrary.
+    Please note that you will not be able to log into your account until you activate it.
+
+    Activate account: {{ protocol }}://{{ domain }}{% url 'verify_email' uidb64=uid token=token %}
+
+    Activation confirms that you can use DjangoLibrary services.
+    This email was automatically sent by DjangoLibrary because someone tried to create an account on DjangoLibrary using
+    this email address.
+{% endautoescape %}
