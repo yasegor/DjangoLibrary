@@ -18,10 +18,6 @@ urlpatterns = [
     path('orders/', include('order.urls')),
 ]
 
-urlpatterns += [
-    path('captcha/', include('captcha.urls')),
-]
-
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
     urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns

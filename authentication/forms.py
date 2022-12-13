@@ -2,9 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit, Div, Field
-from captcha.fields import CaptchaField
+from crispy_forms.layout import Layout, Row, Column, Submit
 from django.core.exceptions import ValidationError
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class SignUpForm(UserCreationForm):
@@ -30,7 +31,6 @@ class SignUpForm(UserCreationForm):
                                     attrs={'class': 'form-control'})))
     password2 = forms.CharField(label='Password confirmation',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    captcha = CaptchaField()
 
     class Meta:
         model = User
@@ -63,7 +63,6 @@ class SignUpForm(UserCreationForm):
                 Column('password2', css_class='form-group col-md-2 mb-3'),
                 css_class='form-row'
             ),
-            Column('captcha', css_class='col-md-2 mb-3'),
             Submit('submit', 'Sign up', css_class='my-3')
         )
 
@@ -76,6 +75,7 @@ class AuthUserForm(AuthenticationForm):
     password = forms.CharField(label='Password',
                                widget=(forms.PasswordInput(
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your password'})))
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     class Meta:
         model = User
@@ -102,5 +102,6 @@ class AuthUserForm(AuthenticationForm):
                 Column('password', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
+            Column('captcha', css_class='form-group col-md-3 mb-0'),
             Submit('submit', 'Sign in', css_class='my-3')
         )
