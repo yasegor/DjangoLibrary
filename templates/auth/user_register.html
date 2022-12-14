@@ -8,17 +8,129 @@
             display: none;
         }
 
+        .form-control {
+            font-size: .9rem;
+        }
+
+        .main_block {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .header_div {
+            text-align: center;
+            margin-bottom: 5%;
+        }
+
+        .header_title {
+            font-size: 30px;
+        }
+
+        .right_block {
+            text-align: center;
+
+        }
+
+        .omb_btn-google {
+            background: #c32f10;
+        }
+
+        .omb_btn-facebook {
+            background: #3b5998;
+        }
+
+        .omb_btn-linkedin {
+            background: #0E67A8;
+        }
+
         p {
             position: absolute;
-            top: 75%;
-            left: 39%;
+            margin-left: auto;
+            margin-right: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
         }
 
     </style>
-    <div class="container py-3">
-        <h3>Sign up in library 📚</h3>
-        <br>
-        {% crispy form %}
+
+    <div class="container p-3 main_block">
+
+        <div class="row">
+            <div class="col">
+                <div class="header_div">
+                    <span class="header_title">Sign up</span>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row pb-1">
+                        <div class="col">
+                            {{ form.first_name|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.last_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row pb-1">
+                        <div class="col">
+                            {{ form.username|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row pb-1">
+                        <div class="col">
+                            {{ form.password1|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.password2|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col text-center">
+                            <button type="submit" class="col-lg-4 btn btn-warning">Confirm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="col right_block pt-1">
+                <div class="header_div pb-4">
+                    <span class="header_title">Sign in via socials</span>
+                </div>
+                <div class="row pb-5">
+                    <div class="col">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-md btn-block omb_btn-google">
+                            <i class="fa fa-google visible-xs text-white"></i>
+                            <span class="hidden-xs text-white">Sign in with Google</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row pb-5">
+                    <div class="col">
+                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-md btn-block omb_btn-facebook">
+                            <i class="fa fa-facebook visible-xs text-white"></i>
+                            <span class="hidden-xs text-white">Sign in with Facebook</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row pb-5">
+                    <div class="col">
+                        <a href="{% url 'social:begin' 'linkedin-oauth2' %}"
+                           class="btn btn-md btn-block omb_btn-linkedin">
+                            <i class="fa fa-linkedin visible-xs text-white"></i>
+                            <span class="hidden-xs text-white">Sign in with LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>If you already have an account, <a href={% url 'login' %}>login</a> instead.</p>
     </div>
-    <p>If you already have an account, <a href={% url 'login' %}>login</a> instead.</p>
 {% endblock %}

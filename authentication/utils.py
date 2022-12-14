@@ -41,8 +41,9 @@ class EmailVerify(View):
         if user is not None and token_generator.check_token(user, token):
             user.profile.verified = True
             user.save()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
-            messages.success(request, "Thank you for you email confirmation!")
+            messages.success(request, "Thank you for your email confirmation!")
             return redirect('index')
         messages.error(request, 'Your link is incorrect!')
         return redirect('index')
