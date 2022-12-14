@@ -49,22 +49,6 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.pop("autofocus", None)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('first_name', css_class='form-group col-md-2 mb-3'),
-                Column('last_name', css_class='form-group col-md-2 mb-3'),
-                Column('username', css_class='form-group col-md-2 mb-3'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('email', css_class='form-group col-md-3 mb-3'),
-                Column('password1', css_class='form-group col-md-2 mb-3'),
-                Column('password2', css_class='form-group col-md-2 mb-3'),
-                css_class='form-row'
-            ),
-            Submit('submit', 'Sign up', css_class='my-3')
-        )
 
 
 class AuthUserForm(AuthenticationForm):
@@ -77,10 +61,6 @@ class AuthUserForm(AuthenticationForm):
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your password'})))
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
-    class Meta:
-        model = User
-        fields = ("username", "password")
-
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
@@ -88,20 +68,3 @@ class AuthUserForm(AuthenticationForm):
         if not user.profile.verified:
             raise ValidationError("Your email isn't verified. Check your email inbox and try again.")
         return self.cleaned_data
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.pop("autofocus", None)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('username', css_class='form-group col-md-3 mb-3'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('password', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
-            ),
-            Column('captcha', css_class='form-group col-md-3 mb-0'),
-            Submit('submit', 'Sign in', css_class='my-3')
-        )

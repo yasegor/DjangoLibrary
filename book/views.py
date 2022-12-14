@@ -11,7 +11,7 @@ from .forms import BookForm
 def all_books(request):
     books = Book.get_all().order_by('-id')
     page_number = request.GET.get('page', 1)
-    paginator = Paginator(books, 3)
+    paginator = Paginator(books, 4)
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(number=page_number)
     context = {'title': 'Books', 'page_range': page_range, 'page_obj': page_obj}

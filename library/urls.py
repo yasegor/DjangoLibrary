@@ -1,6 +1,6 @@
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 
 from . import views
 from library.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
@@ -8,7 +8,6 @@ from library.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 app_name = 'library'
 
 urlpatterns = [
-    re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('', views.index, name='index'),
     path('api/v1/', include('api.urls')),
     path('admin/', admin.site.urls),
