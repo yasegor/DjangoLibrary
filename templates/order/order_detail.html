@@ -142,7 +142,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger"><a href="/orders/delete/{{ order.id }}">Delete</a>
+                    <button type="button" class="btn btn-danger"><a href="{% url 'order_delete' order.id %}">Delete</a>
                     </button>
                 </div>
             </div>

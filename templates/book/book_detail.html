@@ -112,13 +112,13 @@
         <h5><i>Book Title:</i> {{ book.name }}</h5>
         <h5><i>Author:</i> {{ book.get_authors_list|join:'; ' }}</h5>
         <h5><i>Book Count:</i> {{ book.count }}</h5>
-        <h5><i>Book Description:</i> <h5>{{ book.description }}</h5></h5>
+        <h5><i>Book Description:</i> <br>{{ book.description }}</h5>
     </div>
     <div>
         {% if perms.book.change_book %}
-            <a href="{% url 'book_update' book.id %} " class="btn btn-primary">Update</a>
+            <a href="{% url 'book_update' book.id %}" class="btn btn-primary">Update</a>
         {% endif %}
-        <a href="/books/" class="btn btn-success">Back to list</a>
+        <a href="{% url 'book_list' %}" class="btn btn-success">Back to list</a>
         <!-- Button HTML (to Trigger Modal) -->
         {% if perms.book.delete_book %}
             <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
@@ -140,7 +140,8 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger"><a href="/books/delete/{{ book.id }}">Delete</a>
+                        <button type="button" class="btn btn-danger"><a
+                                href="{% url 'book_delete' book.id %}">Delete</a>
                         </button>
                     </div>
                 </div>

@@ -75,7 +75,6 @@
 
         .modal-confirm .btn, .modal-confirm .btn:active {
             color: #fff;
-            border-radius: 4px;
             background: #60c7c1;
             text-decoration: none;
             transition: all 0.4s;
@@ -110,18 +109,18 @@
     </style>
     <div class="my-5">
         <h4>Author name: {{ author.name }}</h4>
-    <h4>Author surname: {{ author.surname }}</h4>
-    <h4>Author surname: {{ author.patronymic }}</h4>
-    <h4>Books: {{ books|join:'; ' }}</h4>
+        <h4>Author surname: {{ author.surname }}</h4>
+        <h4>Author surname: {{ author.patronymic }}</h4>
+        <h4>Books: {{ books|join:'; ' }}</h4>
     </div>
 
     {% if perms.author.change_author %}
-    <a href="/authors/update/{{ author.id }}" class="btn btn-primary">Update</a>
+        <a href="{% url 'author_update' author.id %}" class="btn btn-primary">Update</a>
     {% endif %}
-    <a href="/authors/" class="btn btn-success">Back to list</a>
+    <a href="{% url 'author_list' %}" class="btn btn-success">Back to list</a>
     <!-- Button HTML (to Trigger Modal) -->
     {% if perms.author.delete_author %}
-    <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
+        <a href="#myModal" class="btn btn-danger" data-toggle="modal">Delete</a>
     {% endif %}
 
     <!-- Modal HTML -->
@@ -140,7 +139,8 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger"><a href="/authors/delete/{{ author.id }}">Delete</a>
+                    <button type="button" class="btn btn-danger"><a
+                            href="{% url 'author_delete' author.id %}">Delete</a>
                     </button>
                 </div>
             </div>
