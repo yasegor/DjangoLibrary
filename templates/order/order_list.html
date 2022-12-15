@@ -5,6 +5,7 @@
         <table class="table table-sm table-hover">
             <thead>
             <tr>
+                <th scope="col">User:</th>
                 <th scope="col">Book:</th>
                 <th scope="col">Created at:</th>
                 <th scope="col">End at:</th>
@@ -16,6 +17,7 @@
             {% for order in page_obj %}
                 <tbody>
                 <tr>
+                    <td>{{ order.user }}</td>
                     <td>
                         "{{ order.book.name }}", {{ order.book.authors.first.name }} {{ order.book.authors.first.surname }}</td>
                     <td>{{ order.created_at|date:"d M Y" }}</td>

@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/order/no_orders.css' %}">
 
 {% block content %}
-    <style>
-        .parent {
-            height: 100%;
-            padding: 10%;
-            text-align: center;
-        }
-    </style>
     <div class="parent">
         <div>
             <h3 class="my-5">You don't have any orders yet...</h3>

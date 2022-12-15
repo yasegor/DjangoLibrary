@@ -37,7 +37,7 @@ def create_order(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
-            new_order = form.save()
+            new_order = form.save(commit=False)
             new_order.user = request.user
             book = Book.objects.get(id=new_order.book.id)
             book.update(count=book.count - 1)
