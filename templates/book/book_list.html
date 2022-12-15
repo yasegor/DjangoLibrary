@@ -22,7 +22,8 @@
                     <td>{{ book.description|truncatewords:40 }}</td>
                     <td>{{ book.count }}</td>
                     <td>
-                        <a type="button" class="btn btn-primary mx-2 my-2" href="{% url 'book_list' book.id %}">View</a>
+                        <a type="button" class="btn btn-primary mx-2 my-2"
+                           href="{% url 'book_detail' book.id %}">View</a>
                         {% if perms.book.change_book %}
                             <a type="button" class="btn btn-warning" href="{% url 'book_update' book.id %}">Update</a>
                         {% endif %}
@@ -33,6 +34,7 @@
         </table>
     </div>
 
+    {% if page_obj.count > 4 %}
     <nav>
         <ul class="pagination justify-content-center">
             <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
@@ -67,5 +69,6 @@
             </li>
         </ul>
     </nav>
+    {% endif %}
 {% endblock %}
 

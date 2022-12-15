@@ -10,7 +10,8 @@
                 <th scope="col">surname</th>
                 <th scope="col">patronymic
                     {% if perms.author.add_author %}
-                        <th scope="col"><a type="button" class="btn btn-success mx-2 col-md-4" href="create/">Add
+                        <th scope="col"><a type="button" class="btn btn-success mx-2 col-md-4"
+                                           href="{% url 'book_create' %}">Add
                             new</a></th>
                     {% endif %}
             </tr>

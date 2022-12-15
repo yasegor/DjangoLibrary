@@ -1,60 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+{% load static %}
 
 {% block content %}
-    <style>
-        .asteriskField {
-            display: none;
-        }
-
-        .form-control {
-            font-size: .9rem;
-        }
-
-        .main_block {
-            height: 100%;
-            width: 100%;
-            position: relative;
-        }
-
-        .header_div {
-            text-align: center;
-            margin-bottom: 5%;
-        }
-
-        .header_title {
-            font-size: 30px;
-        }
-
-        .right_block {
-            text-align: center;
-
-        }
-
-        .omb_btn-google {
-            background: #c32f10;
-        }
-
-        .omb_btn-facebook {
-            background: #3b5998;
-        }
-
-        .omb_btn-linkedin {
-            background: #0E67A8;
-        }
-
-        p {
-            position: absolute;
-            margin-left: auto;
-            margin-right: auto;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/authentication/auth.css' %}"/>
 
     <div class="container p-3 main_block">
 

@@ -39,7 +39,7 @@ def author_form(request, id=0):
         return redirect('/authors/')
 
 
-@cache_page(15 * 60)
+# @cache_page(15 * 60)
 def author_detail(request, id):
     author = get_object_or_404(Author, pk=id)
     books = author.get_books_list()
