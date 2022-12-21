@@ -1,47 +1,39 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
-    <div class="col-12">
-        <table class="table table-sm table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">surname</th>
-                <th scope="col">patronymic
-                    {% if perms.author.add_author %}
-                        <th scope="col"><a type="button" class="btn btn-success mx-2 col-md-4"
-                                           href="{% url 'book_create' %}">Add
-                            new</a></th>
-                    {% endif %}
-            </tr>
-            </thead>
-            {% for author in page_obj %}
-                <tbody>
-                <tr>
-                    <td>{{ author.name }}</td>
-                    <td>{{ author.surname }}</td>
-                    <td>{{ author.patronymic }}</td>
-                    <td>
-                        <a type="button" class="btn btn-primary mx-2 my-2"
-                           href="/authors/{{ author.id }}">View</a>
-                        {% if perms.author.change_author %}
-                            <a type="button" class="btn btn-warning"
-                               href="/authors/update/{{ author.id }}">Update</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                </tbody>
-            {% endfor %}
-        </table>
-    </div>
+    <link rel="stylesheet" href="{% static "css/author/author_list.css" %}?{% now "U" %}">
+    <div class="content container pt-3 my-2 main_block">
 
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
-                <a class="page-link"
-                   href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}''{% endif %}"
-                   aria-label="Previous">
+        <div class="row d-flex justify-content-center">
+            {% for author in page_obj %}
+                <div class="col col-sm-3 m-3 pt-3">
+                    <div class="card h-100">
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <span class="card-title mt-2">{{ author.name }} {{ author.patronymic }} {{ author.surname }}</span>
+                        </div>
+
+                        <div class="card-footer border-dark">
+                            <a type="button" class="btn button_view col-4 mx-2"
+                               href="{% url 'author_detail' author.id %}">View</a>
+                            {% if perms.author.change_author %}
+                                <a type="button" class="btn button_detail col-4 mx-2"
+                                   href="{% url 'author_update' author.id %}">Update</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <nav class="pagination_block">
+            <ul class="pagination justify-content-center">
+                <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
+                    <a class="page-link"
+                       href="?page=
+                               {% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}''{% endif %}"
+                       aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -65,10 +57,12 @@
                    href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}''{% endif %}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
                 </a>
             </li>
-        </ul>
-    </nav>
+            </ul>
+        </nav>
+    </div>
+
+
 {% endblock %}
 

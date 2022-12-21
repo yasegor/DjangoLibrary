@@ -1,48 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <div class="col-12">
-        <table class="table table-sm table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Book:</th>
-                <th scope="col">Created at:</th>
-                <th scope="col">End at:</th>
-                <th scope="col">Plated end at:</th>
-                <th scope="col"><a type="button" class="btn btn-success" href="{% url 'order_create' %}">Create</a>
-                </th>
-            </tr>
-            </thead>
+    <link rel="stylesheet" href="{% static "css/order/order_user_list.css" %}?{% now "U" %}">
+
+    <div class="content container pt-3 my-2 h-100 w-100 d-flex flex-column flex-grow-1">
+        <div class="row d-flex justify-content-center">
             {% for order in page_obj %}
-                <tbody>
-                <tr>
-                    <td>
-                        "{{ order.book.name }}", {{ order.book.authors.first.name }} {{ order.book.authors.first.surname }}</td>
-                    <td>{{ order.created_at|date:"d M Y" }}</td>
-                    <td>{{ order.end_at|date:"d M Y" }}</td>
-                    <td>{{ order.plated_end_at|date:"d M Y" }}</td>
+                <div class="col-sm-3 mt-5 ">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <h5 class="card-title mt-2">№{{ order.id }}</h5>
+                            <p class="card-text h-100">{{ order.book.name }}", {{ order.book.authors.first.name }} {{ order.book.authors.first.surname }}</p>
+                        </div>
 
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Created :</b> {{ order.created_at|date:"d M Y" }}</li>
+                            <li class="list-group-item"><b>End :</b> {{ order.end_at|date:"d M Y" }}</li>
+                            <li class="list-group-item"><b>Plated end :</b> {{ order.plated_end_at|date:"d M Y" }}</li>
+                        </ul>
 
-                    <td>
-                        <a type="button" class="btn btn-primary mx-2 my-2"
-                           href="{% url 'order_detail' order.id %}">View</a>
-
-                    </td>
-                </tr>
-                </tbody>
+                        <div class="card-footer"></div>
+                    </div>
+                </div>
             {% endfor %}
-        </table>
-    </div>
+        </div>
 
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
-                <a class="page-link"
-                   href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}''{% endif %}"
-                   aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+        <nav class="pagination_block">
+            <ul class="pagination justify-content-center">
+                <li class="{% if page_obj.has_previous %}page-item{% else %}page-item disabled{% endif %}">
+                    <a class="page-link"
+                       href="?page=
+                               {% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}''{% endif %}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
 
             {% for page_num in page_range|default_if_none:page_obj.paginator.get_elided_page_range %}
                 {% if page_obj.number == page_num %}
@@ -63,9 +56,10 @@
                    href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}''{% endif %}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
                 </a>
             </li>
-        </ul>
-    </nav>
+            </ul>
+        </nav>
+    </div>
+
 {% endblock %}

@@ -3,10 +3,8 @@
 <link rel="stylesheet" href="{% static 'css/order/no_orders.css' %}">
 
 {% block content %}
-    <div class="parent">
-        <div>
-            <h3 class="my-5">You don't have any orders yet...</h3>
-            <h4><a class="btn btn-primary btn-lg" href="{% url "order_create" %}">Order now!</a></h4>
+    <div class="d-flex flex-column justify-content-center align-items-center h-75 w-100">
+        <h3 class="my-5">You don't have any orders yet...</h3>
+        <h4><a class="btn btn-primary btn-lg" href="{% url "order_create" %}">Order now!</a></h4>
         </div>
-    </div>
 {% endblock %}

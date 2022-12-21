@@ -7,7 +7,7 @@ from .models import Author
 from .forms import AuthorForm
 
 
-@cache_page(10 * 60)
+# @cache_page(10 * 60)
 def all_authors(request):
     authors = Author.get_all().order_by('name')
     page_number = request.GET.get('page', 1)

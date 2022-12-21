@@ -13,7 +13,7 @@ def all_orders(request):
     if User.objects.filter(id=request.user.id, groups__name='Librarian').exists() or request.user.is_superuser:
         orders = Order.objects.all().order_by('-id').select_related('book')
         page_number = request.GET.get('page', 1)
-        paginator = Paginator(orders, 6)
+        paginator = Paginator(orders, 4)
         page_obj = paginator.get_page(page_number)
         page_range = paginator.get_elided_page_range(number=page_number)
         context = {'title': 'All orders', 'page_range': page_range, 'page_obj': page_obj}
@@ -25,7 +25,7 @@ def all_orders(request):
             return render(request, 'order/no_orders.html', context)
         else:
             page_number = request.GET.get('page', 1)
-            paginator = Paginator(orders, 6)
+            paginator = Paginator(orders, 4)
             page_obj = paginator.get_page(page_number)
             page_range = paginator.get_elided_page_range(number=page_number)
             context = {'title': 'My orders', 'page_range': page_range, 'page_obj': page_obj}
@@ -47,17 +47,6 @@ def create_order(request):
             return render(request, 'order/order_create.html', {'form': form, 'title': 'New order'})
     form = OrderForm()
     return render(request, "order/order_create.html", {"form": form, "title": "New order"})
-
-
-@login_required
-def order_detail(request, id):
-    order = get_object_or_404(Order, pk=id)
-    if request.method == 'GET':
-        context = {'order': order, 'title': f'Order №{order.id}'}
-        return render(request, 'order/order_detail.html', context)
-    else:
-        order.delete()
-        return redirect('order_list')
 
 
 @permission_required('order.change_order', raise_exception=True)
