@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded&display=swap');
+
+.book-list {
+    font-family: 'Unbounded', cursive;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: black;
+    transition: transform .3s;
+}
+
+.book-list:hover {
+    transform: scale(1.2);
+}
+
+.buttons-block {
+    margin-top: auto;
+}
+
+.hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 96%;
+    background-color: #5b5b5b;
+    height: 1px;
+}

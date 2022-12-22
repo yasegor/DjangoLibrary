@@ -1,3 +1,4 @@
+{% load static %}
 {% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,52 +10,15 @@
               crossorigin="anonymous">
         <link rel="icon" href="https://img.icons8.com/bubbles/50/null/literature.png"
               type="image/x-icon">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-                crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/1edd52e45b.js" crossorigin="anonymous"></script>
-        <style>
-            * {
-                margin: 0;
-            }
 
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                background: #ffffff;
-                color: #222222;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-
-            .content {
-                box-sizing: border-box;
-                padding: 20px;
-                width: 100%;
-            }
-
-            .content p {
-                margin: 10px 0;
-                font-size: 16px;
-                line-height: 1.8;
-            }
-
-            body {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .content {
-                flex-grow: 1;
-            }
-        </style>
+        <link rel="stylesheet" href="{% static 'css/index/index.css' %}?{% now "U" %}">
     {% endblock %}
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid mx-3">
-        <a class="navbar-brand" href="/">Django Library</a>
+    <div class="container-fluid mx-4 my-1">
+        <a class="navbar-brand" href="{% url 'index' %}">Django Library</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
@@ -67,12 +31,12 @@
                         Authors
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/authors/">List of authors</a></li>
+                        <li><a class="dropdown-item" href="{% url 'author_list' %}">List of authors</a></li>
                         {% if perms.author.add_author %}
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/authors/create/">Add new author</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'author_create' %}">Add new author</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -82,12 +46,12 @@
                         Books
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/books/">List of books</a></li>
+                        <li><a class="dropdown-item" href="{% url 'book_list' %}">List of books</a></li>
                         {% if perms.book.add_book %}
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/books/create/">Add new book</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'book_create' %}">Add new book</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -98,17 +62,17 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% if request.user|has_group:"Librarian" or user.is_superuser %}
-                            <li><a class="dropdown-item" href="/orders/">List of orders</a></li>
+                            <li><a class="dropdown-item" href="{% url 'order_list' %}">List of orders</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                         {% else %}
-                            <li><a class="dropdown-item" href="/orders/">My orders</a></li>
+                            <li><a class="dropdown-item" href="{% url 'order_list' %}">My orders</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                         {% endif %}
-                        <li><a class="dropdown-item" href="/orders/create/">New order</a></li>
+                        <li><a class="dropdown-item" href="{% url 'order_create' %}">New order</a></li>
                     </ul>
                 </li>
             </ul>
@@ -117,7 +81,7 @@
                 <ul class="nav justify-content-end">
                     <li class="nav-item mx-2">
                         <div>
-                            <button class="btn btn-outline-light" onclick="location.href='/user/login/'"
+                            <button class="btn btn-outline-light" onclick="location.href='{% url 'login' %}'"
                                     aria-expanded="false">
                                 Sign in
                             </button>
@@ -125,7 +89,7 @@
                     </li>
                     <li class="nav-item mx-3">
                         <div>
-                            <button class="btn btn-outline-light" onclick="location.href='/user/register/'"
+                            <button class="btn btn-outline-light" onclick="location.href='{% url 'register' %}'"
                                     aria-expanded="false">
                                 Sign up
                             </button>
@@ -134,7 +98,8 @@
                 </ul>
 
             {% else %}
-                <button class="btn btn-outline-light" onclick="location.href='/user/logout/'" aria-expanded="false">
+                <button class="btn btn-outline-light" onclick="location.href='{% url 'logout' %}'"
+                        aria-expanded="false">
                     Logout
                 </button>
             {% endif %}
@@ -143,7 +108,7 @@
     </div>
 </nav>
 <div class="content container my-2">
-{% include 'includes/messages.html' %}
+    {% include 'includes/messages.html' %}
     {% block content %}
         {% if user.is_authenticated %}
             <h3>Hello, {{ user.first_name }} {{ user.last_name }}!</h3>
@@ -161,7 +126,7 @@
                 <!-- Gmail -->
                 <a
                         class="btn btn-secondary btn-floating mx-3 my-2"
-                        style="background-color: #dd4b39;"
+                        style="background-color: #ec5947;"
                         href="mailto:asineckijegor@gmail.com"
                         role="button">
                     <i class="fa-solid fa-inbox"></i>
@@ -170,7 +135,7 @@
                 <!-- Telegram -->
                 <a
                         class="btn btn-secondary btn-floating mx-3 my-2"
-                        style="background-color: #38a6db;"
+                        style="background-color: #509ec4;"
                         href="https://t.me/import_error"
                         role="button"
                         target="_blank">
@@ -180,7 +145,7 @@
                 <!-- Linkedin -->
                 <a
                         class="btn btn-secondary btn-floating mx-3 my-2"
-                        style="background-color: #0E67A8;"
+                        style="background-color: #2381c9;"
                         href="https://www.linkedin.com/in/yasegor/"
                         role="button"
                         target="_blank"
@@ -189,7 +154,7 @@
                 <!-- Github -->
                 <a
                         class="btn btn-secondary btn-floating mx-3 my-2"
-                        style="background-color: #333333;"
+                        style="background-color: #4d4d4d;"
                         href="https://github.com/yasegor"
                         role="button"
                         target="_blank"
@@ -203,5 +168,9 @@
         </div>
     </footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/1edd52e45b.js" crossorigin="anonymous"></script>
 </body>
 </html>

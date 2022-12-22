@@ -138,7 +138,7 @@ class Author(models.Model):
         return all_users
 
     def get_books_list(self):
-        books_list = [f'{book.name}' for book in self.books.all()]
+        books_list = [book for book in self.books.all()]
         return books_list
 
     class Meta:
