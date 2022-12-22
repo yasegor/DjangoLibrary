@@ -1,6 +1,4 @@
 from django import forms
-from django.forms import widgets
-from django.core.validators import RegexValidator
 
 from .models import Book
 from author.models import Author
