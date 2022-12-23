@@ -1,41 +1,74 @@
-.main_block {
-    height: 100%;
+.left-block {
+    height: 93%;
+    width: 50%;
+}
+
+.right-block {
+    height: 93%;
+    width: 50%;
+}
+
+.bottom-block {
+    height: 7%;
     width: 100%;
-    position: relative;
 }
 
-.header_div {
-    text-align: center;
+.card {
+    border: none;
+    width: 100%;
+}
+
+
+.card-title {
+    font-size: 2rem;
     margin-bottom: 5%;
+    margin-top: 2%;
 }
 
-.header_title {
-    font-size: 30px;
+.btn-google {
+    color: white;
+    background-color: #DB4437;
 }
 
-.right_block {
-    text-align: center;
+.btn-linkedin {
+    color: white;
+    background-color: #3b5998;
+}
+
+.btn-github {
+    color: white;
+    background-color: #333;
+}
+
+.btn-google:hover {
+    transition-duration: 0.3s;
+    box-shadow: inset 400px 0 0 0 #ff6d5e;
+    color: white;
+}
+
+.btn-linkedin:hover {
+    transition-duration: 0.3s;
+    box-shadow: inset 400px 0 0 0 #0878c9;
+    color: white;
+}
+
+.btn-github:hover {
+    transition-duration: 0.3s;
+    box-shadow: inset 400px 0 0 0 #5b5b5b;
+    color: white;
+}
+
+.alert {
+    font-size: .8em;
 
 }
 
-.omb_btn-google {
-    background: #c32f10;
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    margin-top: 8%;
 }
 
-.omb_btn-facebook {
-    background: #3b5998;
-}
-
-.omb_btn-linkedin {
-    background: #0E67A8;
-}
-
-p {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
+.d-grid {
+    width: 60%;
 }
