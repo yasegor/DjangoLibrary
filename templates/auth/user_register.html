@@ -4,83 +4,83 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/authentication/auth.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/authentication/auth.css' %}?{% now "U" %}">
 
-    <div class="container p-3 main_block">
+    <section class="h-100 w-100 row row-cols-3">
 
-        <div class="row">
-            <div class="col">
-                <div class="header_div">
-                    <span class="header_title">Sign up</span>
-                </div>
-
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="row pb-1">
-                        <div class="col">
-                            {{ form.first_name|as_crispy_field }}
+        <div class="left-block col d-flex justify-content-end">
+            <div class="card col-lg-10">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Sign up</h5>
+                    <div class="card-text">
+                        <div class="">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="row justify-content-center pb-1">
+                                    <div class="col-5">
+                                        {{ form.first_name|as_crispy_field }}
+                                    </div>
+                                    <div class="col-5">
+                                        {{ form.last_name|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center pb-1">
+                                    <div class="col-5">
+                                        {{ form.username|as_crispy_field }}
+                                    </div>
+                                    <div class="col-5">
+                                        {{ form.email|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center pb-1">
+                                    <div class="col-5">
+                                        {{ form.password1|as_crispy_field }}
+                                    </div>
+                                    <div class="col-5">
+                                        {{ form.password2|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row pt-3">
+                                    <div class="col text-center">
+                                        <button type="submit" class="col-lg-4 btn btn-warning">Confirm</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col">
-                            {{ form.last_name|as_crispy_field }}
-                        </div>
-                    </div>
-                    <div class="row pb-1">
-                        <div class="col">
-                            {{ form.username|as_crispy_field }}
-                        </div>
-                        <div class="col">
-                            {{ form.email|as_crispy_field }}
-                        </div>
-                    </div>
-                    <div class="row pb-1">
-                        <div class="col">
-                            {{ form.password1|as_crispy_field }}
-                        </div>
-                        <div class="col">
-                            {{ form.password2|as_crispy_field }}
-                        </div>
-                    </div>
-                    <div class="row pt-3">
-                        <div class="col text-center">
-                            <button type="submit" class="col-lg-4 btn btn-warning">Confirm</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-
-            <div class="col right_block pt-1">
-                <div class="header_div pb-4">
-                    <span class="header_title">Sign in via socials</span>
-                </div>
-                <div class="row mb-5">
-                    <div class="col">
-                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-md btn-block omb_btn-google">
-                            <i class="fa fa-google visible-xs text-white"></i>
-                            <span class="hidden-xs text-white">Sign in with Google</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="row my-5">
-                    <div class="col">
-                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-md btn-block omb_btn-facebook">
-                            <i class="fa fa-facebook visible-xs text-white"></i>
-                            <span class="hidden-xs text-white">Sign in with Facebook</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="row my-5">
-                    <div class="col">
-                        <a href="{% url 'social:begin' 'linkedin-oauth2' %}"
-                           class="btn btn-md btn-block omb_btn-linkedin">
-                            <i class="fa fa-linkedin visible-xs text-white"></i>
-                            <span class="hidden-xs text-white">Sign in with LinkedIn</span>
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <p>If you already have an account, <a href={% url 'login' %}>login</a> instead.</p>
-    </div>
+        <div class="right-block col d-flex justify-content-start">
+            <div class="card col-lg-9">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Login via socials</h5>
+                    <div class="card-text d-flex flex-column align-items-center">
+                        <div class="d-grid my-4 pt-2 pb-1">
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google">
+                                <i class="fab fa-google me-2"></i> Sign in with Google
+                            </a>
+                        </div>
+                        <div class="d-grid my-4 pb-1">
+                            <a href="{% url 'social:begin' 'linkedin-oauth2' %}" class="btn btn-linkedin">
+                                <i class="fab fa-linkedin me-2"></i> Sign in with LinkedIn
+                            </a>
+                        </div>
+                        <div class="d-grid my-4">
+                            <a href="{% url 'social:begin' 'github' %}" class="btn btn-github">
+                                <i class="fab fa-github me-2"></i> Sign in with GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-block col d-flex justify-content-center align-items-center">
+            <p>If you already have an account, <a href={% url 'login' %}>login</a> instead.</p>
+        </div>
+
+    </section>
+
 {% endblock %}

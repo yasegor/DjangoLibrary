@@ -1,8 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
 from django.core.exceptions import ValidationError
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
@@ -19,11 +17,6 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'})
     )
     email = forms.EmailField(required=True, max_length=40,
-                             error_messages={
-                                 'unique': (
-                                     "User with that email already registered."
-                                 )
-                             },
                              widget=(
                                  forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'example@gmail.com'})))
     password1 = forms.CharField(label='Password',
@@ -41,7 +34,7 @@ class SignUpForm(UserCreationForm):
         email = cleaned_data.get('email')
 
         if User.objects.filter(email=email).exists():
-            msg = 'A user with that email already exists.'
+            msg = 'User with that email already exists.'
             self.add_error('email', msg)
 
         return self.cleaned_data
@@ -56,10 +49,14 @@ class AuthUserForm(AuthenticationForm):
                                max_length=30,
                                widget=forms.TextInput(
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
-    password = forms.CharField(label='Password',
+    password = forms.CharField(label='Password', error_messages={
+        'unique': (
+            "This password is incorrect."
+        )
+    },
                                widget=(forms.PasswordInput(
                                    attrs={'class': 'form-control', 'placeholder': 'Enter your password'})))
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(), label=False)
 
     def clean(self):
         cleaned_data = super().clean()
