@@ -1,0 +1,17 @@
+.button_detail {
+    width: 30%;
+    background: #a4bdf5;
+    border: 1px solid #4d4d4d;
+    transition: width .5s;
+}
+
+.button_detail:hover {
+    background: #769ae8;
+    border: 1px solid #333333;
+    width: 40%;
+}
+
+
+img {
+    border: 1px solid #818181;
+}

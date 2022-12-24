@@ -10,6 +10,12 @@ from django.contrib.auth import login, authenticate
 from .utils import send_mail_to_verify
 
 
+@login_required()
+def profile_view(request):
+    context = {'title': 'My profile'}
+    return render(request, 'auth/profile.html', context=context)
+
+
 def register_view(request):
     if request.user.is_authenticated:
         return redirect('index')

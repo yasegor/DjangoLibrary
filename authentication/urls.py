@@ -4,7 +4,7 @@ from . import views
 from . import utils
 
 urlpatterns = [
-    # path('', views.user_info, name="user_info"),
+    path('profile/', views.profile_view, name="profile"),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('login/', views.login_view, name="login"),
     path('register/', views.register_view, name="register"),
