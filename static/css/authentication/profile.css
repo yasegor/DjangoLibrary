@@ -15,3 +15,13 @@
 img {
     border: 1px solid #818181;
 }
+
+.crop {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.input-group {
+    visibility: hidden;
+}

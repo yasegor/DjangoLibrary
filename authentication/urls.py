@@ -5,6 +5,7 @@ from . import utils
 
 urlpatterns = [
     path('profile/', views.profile_view, name="profile"),
+    path('profile/update/<int:id>/', views.profile_update, name='profile_update'),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('login/', views.login_view, name="login"),
     path('register/', views.register_view, name="register"),

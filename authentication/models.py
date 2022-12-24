@@ -13,7 +13,7 @@ GENDER_CHOICES = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to="avatars/%m/%Y", blank=True)
+    avatar = models.ImageField(default='default-avatar.png', upload_to="avatars/%m/%Y", blank=True, null=True)
     phone_number = PhoneNumberField(region='UA', blank=True)
     gender = models.CharField(max_length=15, choices=GENDER_CHOICES, default='N')
     verified = models.BooleanField(default=False)

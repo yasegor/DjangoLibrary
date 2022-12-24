@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from phonenumber_field.formfields import PhoneNumberField
+
+from .models import Profile, GENDER_CHOICES
 
 
 class SignUpForm(UserCreationForm):
@@ -65,3 +68,22 @@ class AuthUserForm(AuthenticationForm):
         if not user.profile.verified:
             raise ValidationError("Your email isn't verified. Check your email inbox and try again.")
         return self.cleaned_data
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('avatar', 'phone_number', 'gender')
+        widgets = {'gender': forms.Select(choices=GENDER_CHOICES, attrs={'class': 'form-control'})}
+        phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': 'Phone'}), required=False,
+                                        region='UA')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields['avatar'].label = False
+        self.fields['phone_number'].label = False
+        self.fields['gender'].label = False
+        self.fields['avatar'].required = False
+        self.fields['phone_number'].reduired = False
+        self.fields['gender'].required = False

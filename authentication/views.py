@@ -4,9 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.shortcuts import render, redirect
 
-from .forms import SignUpForm, AuthUserForm
+from .forms import SignUpForm, AuthUserForm, UserProfileForm
 from django.contrib.auth import login, authenticate
 
+from .models import Profile
 from .utils import send_mail_to_verify
 
 
@@ -14,6 +15,19 @@ from .utils import send_mail_to_verify
 def profile_view(request):
     context = {'title': 'My profile'}
     return render(request, 'auth/profile.html', context=context)
+
+
+@login_required()
+def profile_update(request, id):
+    if request.method == "POST":
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile')
+    else:
+        profile_form = UserProfileForm(instance=request.user.profile)
+    context = {'profile_form': profile_form, 'title': 'Update profile'}
+    return render(request, 'auth/profile_update.html', context)
 
 
 def register_view(request):
