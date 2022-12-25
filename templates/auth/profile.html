@@ -14,20 +14,76 @@
                                 <img src="{{ user.profile.avatar.url }}"
                                      class="rounded-circle img-fluid crop" id="myImg">
                             </div>
-                            <div id="myModal" class="modal">
+                            <div id="myModal" class="modal-photo">
                                 <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-                                <img class="modal-content" id="img01">
+                                <img class="modal-content modal-content-photo" id="img01">
                                 <div id="caption"></div>
                             </div>
                             <div class="mb-4">
                                 <h5 class="my-3"><strong>{{ user.username }}</strong></h5>
                                 <p class="text-muted">Reader №{{ user.id }}</p>
+                                {{ user.token }}
                             </div>
                             <div>
                                 <button type="button" onclick="location.href='{% url 'profile_update' user.id %}'"
                                         class="btn button_detail">Update
                                 </button>
                             </div>
+
+                            <div class="circles" data-bs-toggle="modal" data-bs-target="#developersModal"
+                                 title="For Developers"></div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="developersModal" tabindex="-1"
+                                 aria-labelledby="developersModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="developersModalLabel"><b>You can use Django
+                                                Library API</b></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+
+                                        {% if not token %}
+                                            <div class="modal-body">
+                                                <p><u>You need a token to be able to send requests to the API</u></p>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <p><a href="{% url 'get_token' %}" role="button"
+                                                      class="btn btn-secondary popover-test">Click button</a> to get
+                                                    token.</p>
+                                            </div>
+
+                                        {% else %}
+                                            <div class="modal-body">
+                                                <p><b>Your token:</b>
+                                                    <code id="token" style="cursor: pointer;">{{ token }}</code>
+                                                </p>
+                                                <p id="success"></p>
+
+                                                <p><u>Put the token in request's header</u></p>
+                                                <table class="table table-bordered table-sm">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Key</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>Token {{ token|truncatechars:15 }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <a href="">View API documentation</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

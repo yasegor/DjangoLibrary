@@ -75,7 +75,7 @@ class UserProfileForm(forms.ModelForm):
         model = Profile
         fields = ('avatar', 'phone_number', 'gender')
         widgets = {'gender': forms.Select(choices=GENDER_CHOICES, attrs={'class': 'form-control'})}
-        phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': 'Phone'}), required=False,
+        phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': '(xxx)xxx-xxxx'}), required=False,
                                         region='UA')
 
     def __init__(self, *args, **kwargs):

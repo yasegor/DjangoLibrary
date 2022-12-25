@@ -11,6 +11,7 @@
         <link rel="icon" href="https://img.icons8.com/bubbles/50/null/literature.png"
               type="image/x-icon">
 
+
         <link rel="stylesheet" href="{% static 'css/index/index.css' %}?{% now "U" %}">
     {% endblock %}
 </head>
@@ -98,7 +99,7 @@
                 </ul>
 
             {% else %}
-                <ul class="nav justify-content-end">
+                <ul class="nav">
                     <li class="nav-item mx-2">
                         <div>
                             <button class="btn btn-outline-light" onclick="location.href='{% url 'profile' %}'"
