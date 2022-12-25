@@ -68,6 +68,18 @@ body {
     border: 1px solid #333333;
 }
 
+.btn-warning {
+    color: #444444;
+    background: #ffbc62;
+    border: 1px solid #4d4d4d;
+}
+
+.btn-warning:hover {
+    color: white;
+    background: #ffa72e;
+    border: 1px solid #4d4d4d;
+}
+
 .asteriskField {
     display: none;
 }
@@ -76,4 +88,3 @@ body {
     font-size: .9rem;
     height: 38px;
 }
-

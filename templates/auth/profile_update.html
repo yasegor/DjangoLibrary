@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        .form-control {
+            width: 60%;
+            height: 40%;
+        }
+
+        hr {
+            margin: 0.9rem;
+        }
+    </style>
+
+    <link rel="stylesheet" href="{% static 'css/authentication/profile.css' %}?{% now "U" %}">
+    <section>
+        <div class="container py-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row justify-content-center g-4">
+                    <div class="col-lg-5">
+                        <div class="card mb-4 h-100">
+                            <div class="card-body text-center pb-0">
+                                <div class="mt-1 mb-4 d-flex justify-content-center">
+                                    {{ profile_form.avatar|as_crispy_field }}
+                                </div>
+                                <div class="mb-4">
+                                    <h5 class="my-3"><strong>{{ user.username }}</strong></h5>
+                                    <p class="text-muted">Reader №{{ user.id }}</p>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-success col-5 m-2"><i
+                                            class="fa-regular fa-circle-check"></i>
+                                        Submit
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onclick="href='javascript:history.go(-1)'"
+                                            class="btn btn-warning col-5 m-2">
+                                        <i class="fa-regular fa-circle-left"></i> Go back
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="card mb-4 h-100">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ user.first_name }} {{ user.last_name }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Phone</p>
+                                    </div>
+                                    <div class="col-sm-9 m-0">
+                                        <p class="text-muted mb-0">{{ profile_form.phone_number|as_crispy_field }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Gender</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ profile_form.gender|as_crispy_field }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Date joined</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ user.date_joined }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}

@@ -2,11 +2,14 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
+from rest_framework.authtoken.models import Token
 
-from .forms import SignUpForm, AuthUserForm
+from .forms import SignUpForm, AuthUserForm, UserProfileForm
 from django.contrib.auth import login, authenticate
 
+from .models import Profile
 from .utils import send_mail_to_verify
 
 
@@ -52,3 +55,32 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+@login_required()
+def profile_view(request):
+    try:
+        token = Token.objects.get(user_id=request.user.id)
+        context = {'title': 'My profile', 'token': token}
+    except ObjectDoesNotExist:
+        context = {'title': 'My profile', 'token': None}
+    return render(request, 'auth/profile.html', context=context)
+
+
+@login_required
+def profile_update(request, id):
+    if request.method == "POST":
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile')
+    else:
+        profile_form = UserProfileForm(instance=request.user.profile)
+    context = {'profile_form': profile_form, 'title': 'Update profile'}
+    return render(request, 'auth/profile_update.html', context)
+
+
+@login_required
+def create_token(request):
+    Token.objects.create(user=request.user)
+    return redirect('profile')

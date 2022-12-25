@@ -13,16 +13,18 @@ GENDER_CHOICES = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to="avatars/%m/%Y", blank=True)
+    avatar = models.ImageField(default='default-avatar.png', upload_to="avatars/%m/%Y", blank=True, null=True)
     phone_number = PhoneNumberField(region='UA', blank=True)
     gender = models.CharField(max_length=15, choices=GENDER_CHOICES, default='N')
     verified = models.BooleanField(default=False)
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
