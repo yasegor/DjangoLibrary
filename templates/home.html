@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/index/home.css' %}?{% now "U" %}">
+    <main class=" h-100 w-100 d-flex flex-column">
+
+        <header class="text-center header-block">
+            {% if user.is_authenticated %}
+                <h3>Greetings, {{ user.first_name }} {{ user.last_name }}!</h3>
+            {% else %}
+                <h3>Greetings, Guest!</h3>
+            {% endif %}
+        </header>
+
+        <main class="w-100 d-flex main-block">
+            <section class="left-block">
+                <p>I present to you my project "Django Library" on which I have been working for 3 months.</p>
+
+                <p>I was able to improve all the necessary skills and get closer to my goal of becoming an engineer.</p>
+
+                <p>I wanted to make an application that would be as user-friendly as possible, so during the development
+                    I was able to improve my skills in front-end development well, mastered CSS and Bootstrap.</p>
+
+                <p>This project contains 2 types of authorization: directly in the service and through social networks.
+                    All workarounds to the pages are closed, you get access to advanced functionality only after
+                    authorization. You can explore the list of authors and books that the Django Library provides. You
+                    can also order a book, specifying the date when you undertake to return the book.
+                    You will have a profile at your disposal, in which you can enter personal information and set an
+                    avatar.
+                    If you are a developer, you can click on the gear button in your profile to learn how to use the
+                    Django Library API.</p>
+
+                <p>A user can be in one of 4 groups: Guest, User, Librarian, Admin. Each group has its own set of
+                    rights, such as editing, deleting, adding.</p>
+
+                <p>During development, I encountered a number of problems, but in the course of solving them, I
+                    understood more and more the work of the technologies used, I saw my mistakes and shortcomings.</p>
+
+                <p><b>The following technologies were used in the project:</b> Django, Django Rest Framework,
+                    PostgreSQL, HTML & CSS, Bootstrap, Docker, Docker-compose</p>
+            </section>
+
+            <aside class="right-block">
+                <p>Hi there!</p>
+                <p>As you can see from the footer - my name is Egor. Yes, I'm in the photo :)</p>
+
+                <p>I have been into Python development since September 2021. During all this time, I managed to take
+                    about 10 courses, read several books, about a hundred articles and much more.</p>
+
+                <p>The Django Library project for me is the first full-fledged project in which I used several
+                    technologies, and most importantly, completed it to the end. It was a great experience during which
+                    I realized that 80% practice and 20% theory is better than 80% theory and 20% practice.</p>
+            </aside>
+        </main>
+
+        <footer class="text-center footer-block">
+            <span>You can find out more about the project on the <a href="">documentation page</a>.</span>
+        </footer>
+    </main>
+{% endblock %}

@@ -1,0 +1,30 @@
+.header-block {
+    height: 10%;
+}
+
+.main-block {
+    height: 80%;
+}
+
+.left-block {
+    width: 70%;
+    padding: 1%;
+    border-right: 1px solid #5d5d5d;
+}
+
+.right-block {
+    width: 30%;
+    padding: 1%;
+    text-align: center;
+}
+
+.footer-block {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+p {
+    font-size: 13px !important;
+}

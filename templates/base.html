@@ -125,11 +125,7 @@
 <div class="content container my-2">
     {% include 'includes/messages.html' %}
     {% block content %}
-        {% if user.is_authenticated %}
-            <h3>Hello, {{ user.first_name }} {{ user.last_name }}!</h3>
-        {% else %}
-            <h3>Hello, Guest!</h3>
-        {% endif %}
+
     {% endblock %}
 </div>
 

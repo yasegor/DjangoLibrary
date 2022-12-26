@@ -82,5 +82,9 @@ def profile_update(request, id):
 
 @login_required
 def create_token(request):
-    Token.objects.create(user=request.user)
+    if request.user.profile.verified:
+        Token.objects.create(user=request.user)
+        messages.success(request, 'The token has been successfully created. Click on the gear again.')
+    else:
+        send_mail_to_verify(request, request.user)
     return redirect('profile')
