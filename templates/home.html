@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/index/home.css' %}?{% now "U" %}">
+    <main class=" h-100 w-100 d-flex flex-column">
+
+
+        <main class="w-100 d-flex justify-content-between main-block">
+            <section class="left-block" id="style-1">
+                <header class="header-block">
+                    {% if user.is_authenticated %}
+                        <h3>Вітаю, {{ user.first_name }} {{ user.last_name }}!</h3>
+                    {% else %}
+                        <h3>Вітаю, друже!</h3>
+                    {% endif %}
+                </header>
+                <p>Ласкаво прошу у &laquo;Django Library&raquo;. Це &ndash; проєкт, над котрим я працював протягом 3-х
+                    місяців.</p>
+                <p>За час розробки я зміг покращити важливі для мене навички та наблизитись до своєї цілі - <span
+                        id="yellow-text">стати інженером</span>.</p>
+                <p>Моєю метою було створити застосунок, який би був максимально зручним для користувача, тому я навіть
+                    трішки поглибився у верстку, і засвоїв HTML, CSS та Bootstrap.</p>
+                <p>Цей проєкт містить <span id="yellow-text">2 види авторизації</span>: безпосередньо в сервісі та через
+                    соціальні мережі. В процесі реєстрації користувач отримає лист на пошту з посиланням-підтвержденням.
+                    Це один з методів безпеки від бот-атак. Також, при авторизації, користувач має пройти капчу.</p>
+                <p>Після реєстрації ви отримаєте <span id="yellow-text">власний профіль</span>, в якому зможете вказати
+                    особисту
+                    інформацію і встановити аватар. </p>
+                <p>Якщо Ви розробник - натисніть на кнопку у вигляді шестерні для того, щоб дізнатися, як
+                    використовувати <span id="yellow-text">API Django Library</span>.</p>
+                <p>Деякі функції обмежені правами доступу. В проекті реалізовані 4 групи прав: гість, юзер, бібліотекар,
+                    адмін.
+                    Саме тому дані знаходяться у повній безпеці</p>
+                <p><span id="yellow-text">В проєкті було використано такі технології</span>: Django, Django Rest
+                    Framework, PostgreSQL, HTML / CSS &
+                    Bootstrap, Docker, Docker-compose.</p>
+            </section>
+
+            <aside class="right-block" id="style-1">
+                <div class="d-flex justify-content-between">
+                    <div style="margin-top: 5%; text-align: center; ">
+                        <p><b>Так, це я :)</b></p>
+                        <p><b>Мене звати Єгор Ясинецький.</b></p>
+                        <hr style="width: 100%; height: 2px;">
+                    </div>
+                    <div class="photo-block">
+                        <div class="photo"></div>
+                    </div>
+                </div>
+
+                <p id="text-right-block">Я - Python розробник, маю <span id="yellow-text">більше року</span> досвіду в
+                    програмуванні.</p>
+                <p id="text-right-block">За цей час я встиг пройти близько <span id="yellow-text">10 курсів</span>,
+                    прочитати декілька книг та більше сотні статей. До того
+                    ж написав <span id="yellow-text">5 проєктів</span>, декілька з яких були <span id="yellow-text">комерційними</span>.
+                </p>
+                <p id="text-right-block">Цікавлюсь розробкою орієнтованих на юзера додатків та побудовою бізнес-процесів
+                    в компанії. Я
+                    орієнтований на якісний результат, тому в роботі завжди викладаюсь на повну.</p>
+                <p id="text-right-block">Захоплююсь Arduino та люблю стратегічні ігри.</p>
+            </aside>
+        </main>
+
+        <footer class="text-center footer-block">
+            <span style="font-size: 15px;">Більше інформації про проект знаходиться на <a
+                    href="">сторінці документації</a>.</span>
+        </footer>
+    </main>
+{% endblock %}

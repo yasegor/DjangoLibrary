@@ -14,10 +14,10 @@
                         </div>
 
                         <div class="card-footer border-dark">
-                            <a type="button" class="btn button_view col-4 mx-2"
+                            <a type="button" class="btn button_view mx-2"
                                href="{% url 'author_detail' author.id %}">View</a>
                             {% if perms.author.change_author %}
-                                <a type="button" class="btn button_detail col-4 mx-2"
+                                <a type="button" class="btn button_detail mx-2"
                                    href="{% url 'author_update' author.id %}">Update</a>
                             {% endif %}
                         </div>
