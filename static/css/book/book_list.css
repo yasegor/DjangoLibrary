@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
 }
 
 .card-title {
@@ -48,11 +48,6 @@
 .button_detail:hover {
     background: rgba(255, 222, 43, 0.92);
     border: 1px solid #4d4d4d;
-}
-
-
-.pagination_block {
-    margin-top: auto;
 }
 
 .page-link {
