@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 
+from authentication.utils import send_mail_to_verify
 from book.models import Book
 from .models import Order
 from .forms import OrderForm
@@ -34,19 +36,23 @@ def all_orders(request):
 
 @login_required
 def create_order(request):
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            new_order = form.save(commit=False)
-            new_order.user = request.user
-            book = Book.objects.get(id=new_order.book.id)
-            book.update(count=book.count - 1)
-            new_order.save()
-            return redirect('order_list')
-        else:
-            return render(request, 'order/order_create.html', {'form': form, 'title': 'New order'})
-    form = OrderForm()
-    return render(request, "order/order_create.html", {"form": form, "title": "New order"})
+    if request.user.profile.verified:
+        if request.method == "POST":
+            form = OrderForm(request.POST)
+            if form.is_valid():
+                new_order = form.save(commit=False)
+                new_order.user = request.user
+                book = Book.objects.get(id=new_order.book.id)
+                book.update(count=book.count - 1)
+                new_order.save()
+                return redirect('order_list')
+            else:
+                return render(request, 'order/order_create.html', {'form': form, 'title': 'New order'})
+        form = OrderForm()
+        return render(request, "order/order_create.html", {"form": form, "title": "New order"})
+    else:
+        messages.error(request, "Your email hasn't been verified. Check your mail.")
+        send_mail_to_verify(request, request.user)
 
 
 @permission_required('order.change_order', raise_exception=True)
