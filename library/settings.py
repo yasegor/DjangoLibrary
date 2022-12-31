@@ -22,6 +22,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', default=0)
 
 ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS').split()
+CSRF_TRUSTED_ORIGINS = 'https://*.django-library.tech', 'http://*.127.0.0.1'
+CSRF_COOKIE_DOMAIN = '127.0.0.1'
+CSRF_COOKIE_SECURE = False
 
 DEFAULT_APPS = [
     'django.contrib.admin',
@@ -149,9 +152,11 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = ''
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ('static',)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = (
+#         os.path.join(BASE_DIR, 'static'),
+#     )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -7,7 +7,6 @@ from .models import Author
 from .forms import AuthorForm
 
 
-# @cache_page(10 * 60)
 def all_authors(request):
     authors = Author.get_all().order_by('name')
     page_number = request.GET.get('page', 1)
@@ -39,7 +38,7 @@ def author_form(request, id=0):
         return redirect('/authors/')
 
 
-# @cache_page(15 * 60)
+@cache_page(15 * 60)
 def author_detail(request, id):
     author = get_object_or_404(Author, pk=id)
     books = author.get_books_list()

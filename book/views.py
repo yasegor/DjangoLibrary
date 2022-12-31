@@ -7,7 +7,6 @@ from .models import Book
 from .forms import BookForm
 
 
-# @cache_page(10 * 60)
 def all_books(request):
     books = Book.get_all().order_by('-id')
     page_number = request.GET.get('page', 1)
@@ -40,7 +39,7 @@ def book_form(request, id=0):
         return redirect('/books/')
 
 
-# @cache_page(15 * 60)
+@cache_page(15 * 60)
 def book_detail(request, id):
     book = get_object_or_404(Book, pk=id)
     context = {'book': book, 'title': book.name}
